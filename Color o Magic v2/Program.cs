@@ -47,7 +47,7 @@ public class Program
         // Log messages to the console
         client.Log += LogAsync;
         interactions.Log += LogAsync;
-        
+
         // Register the interactions when the client is ready
         client.Ready += async () =>
         {

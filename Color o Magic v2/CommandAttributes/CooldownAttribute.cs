@@ -14,7 +14,7 @@ public class CooldownAttribute : PreconditionAttribute
     /// <summary>
     /// Sets a cooldown on the command.
     /// </summary>
-    /// <param name="cooldownTime">Cooldown time is in milliseconds.</param>
+    /// <param name="cooldownTime">A cooldown in milliseconds.</param>
     public CooldownAttribute(long cooldownTime = 5 * 1000) => _cooldownTime = cooldownTime;
 
     public override async Task<PreconditionResult> CheckRequirementsAsync(IInteractionContext context, ICommandInfo commandInfo, IServiceProvider serviceProvider)
