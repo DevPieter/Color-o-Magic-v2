@@ -19,9 +19,9 @@ public class CooldownAttribute : PreconditionAttribute
 
     public override async Task<PreconditionResult> CheckRequirementsAsync(IInteractionContext context, ICommandInfo commandInfo, IServiceProvider serviceProvider)
     {
-        // Owner bypasses cooldown
+        // Owner bypasses the cooldown
         var config = serviceProvider.GetRequiredService<IConfiguration>();
-        if (context.User.Id.Equals(UInt64.Parse(config["BOT_OWNER_ID"] ?? "427388881214898177"))) return await Task.FromResult(PreconditionResult.FromSuccess());
+        if (context.User.Id.ToString().Equals(config["BOT_OWNER_ID"] ?? "427388881214898177")) return await Task.FromResult(PreconditionResult.FromSuccess());
 
         // Get the current time in milliseconds
         var currentTimeMs = DateTimeOffset.Now.ToUnixTimeMilliseconds();

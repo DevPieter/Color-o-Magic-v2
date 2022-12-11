@@ -22,7 +22,7 @@ public class Program
             .ConfigureServices((context, services) =>
             {
                 services
-                    .AddSingleton(x => new DiscordSocketClient())
+                    .AddSingleton(x => new DiscordSocketClient(new DiscordSocketConfig { GatewayIntents = GatewayIntents.None }))
                     .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
                     .AddSingleton<InteractionHandler>();
             }).Build();
@@ -51,7 +51,7 @@ public class Program
         // Register the interactions when the client is ready
         client.Ready += async () =>
         {
-            await interactions.RegisterCommandsToGuildAsync(UInt64.Parse(config["TEST_SERVER_ID"] ?? ""));
+            await interactions.RegisterCommandsToGuildAsync(ulong.Parse(config["TEST_SERVER_ID"] ?? ""));
             //await interactions.RegisterCommandsGloballyAsync();
         };
 
