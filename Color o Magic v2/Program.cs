@@ -1,5 +1,4 @@
 ﻿using Discord;
-using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -35,24 +34,24 @@ public class Program
     private async Task RunClientAsync(IHost host)
     {
         using var serviceScope = host.Services.CreateScope();
-        var provider = serviceScope.ServiceProvider;
+        var serviceProvider = serviceScope.ServiceProvider;
 
-        var client = provider.GetRequiredService<DiscordSocketClient>();
-        var config = provider.GetRequiredService<IConfiguration>();
+        // Get services
+        var client = serviceProvider.GetRequiredService<DiscordSocketClient>();
+        var config = serviceProvider.GetRequiredService<IConfiguration>();
 
         // Initialize the interaction handler
-        var interactions = provider.GetRequiredService<InteractionService>();
-        await provider.GetRequiredService<InteractionHandler>().InitializeAsync();
+        var interactions = serviceProvider.GetRequiredService<InteractionService>();
+        await serviceProvider.GetRequiredService<InteractionHandler>().InitializeAsync();
 
         // Log messages to the console
         client.Log += LogAsync;
         interactions.Log += LogAsync;
-
+        
+        // Register the interactions when the client is ready
         client.Ready += async () =>
         {
-            Console.WriteLine("Client is ready!");
-            // Register the application interactions
-            await interactions.RegisterCommandsToGuildAsync(UInt64.Parse(config["TEST_SERVER"] ?? ""));
+            await interactions.RegisterCommandsToGuildAsync(UInt64.Parse(config["TEST_SERVER_ID"] ?? ""));
             //await interactions.RegisterCommandsGloballyAsync();
         };
 
