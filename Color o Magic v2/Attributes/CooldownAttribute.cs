@@ -3,7 +3,7 @@ using Discord.Interactions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Color_o_Magic_v2.CommandAttributes;
+namespace Color_o_Magic_v2.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class CooldownAttribute : PreconditionAttribute

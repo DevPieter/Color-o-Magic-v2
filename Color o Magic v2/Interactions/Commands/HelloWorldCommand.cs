@@ -1,5 +1,4 @@
-﻿using Color_o_Magic_v2.CommandAttributes;
-using Discord.Commands;
+﻿using Color_o_Magic_v2.Attributes;
 using Discord.Interactions;
 
 namespace Color_o_Magic_v2.Interactions.Commands;
