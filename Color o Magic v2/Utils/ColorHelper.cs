@@ -2,7 +2,7 @@
 
 namespace Color_o_Magic_v2.Utils;
 
-public static class ColorUtils
+public static class ColorHelper
 {
     private static readonly Random DefaultRandom = new();
 
@@ -10,22 +10,34 @@ public static class ColorUtils
     /// Converts a hex string to a <see cref="Color"/>.
     /// </summary>
     /// <param name="hex">A hex string.</param>
-    public static Color? FromHex(string hex) { try { return ColorTranslator.FromHtml(hex); } catch { return null; } }
-    
+    public static Color? FromHex(string hex)
+    {
+        try { return ColorTranslator.FromHtml(hex); }
+        catch { return null; }
+    }
+
     /// <summary>
     /// Converts rgb values to a <see cref="Color"/>.
     /// </summary>
     /// <param name="r">Red</param>
     /// <param name="g">Green</param>
     /// <param name="b">Blue</param>
-    public static Color? FromRgb(int r, int g, int b) { try { return Color.FromArgb(r, g, b); } catch { return null; } }
+    public static Color? FromRgb(int r, int g, int b)
+    {
+        try { return Color.FromArgb(r, g, b); }
+        catch { return null; }
+    }
 
     /// <summary>
     /// Generates a random <see cref="Color"/>.
     /// </summary>
     /// <param name="random">Use a custom (seeded) <see cref="Random"/>.</param>
-    public static Color GetRandom(Random? random = null) => Color.FromArgb((random??DefaultRandom).Next(0, 256), (random??DefaultRandom).Next(0, 256), (random??DefaultRandom).Next(0, 256));
-    
+    public static Color GetRandom(Random? random = null)
+    {
+        random ??= DefaultRandom;
+        return Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256));
+    }
+
     /// <summary>
     /// Generates a gradient between two colors.
     /// </summary>
