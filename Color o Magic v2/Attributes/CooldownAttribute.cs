@@ -11,21 +11,30 @@ namespace Color_o_Magic_v2.Attributes;
 public class CooldownAttribute : PreconditionAttribute
 {
     private readonly long _cooldownTime;
+    private readonly bool _ownerCanBypass;
     private readonly Dictionary<ulong, long> _activeCooldowns = new();
 
     /// <summary>
     /// Sets a cooldown on the command.
     /// </summary>
     /// <param name="cooldownTime">A cooldown in milliseconds.</param>
-    public CooldownAttribute(long cooldownTime = 5 * 1000) => _cooldownTime = cooldownTime;
+    /// <param name="ownerCanBypass">If true, this cooldown will not affect the bot owner.</param>
+    public CooldownAttribute(long cooldownTime = 5 * 1000, bool ownerCanBypass = true)
+    {
+        _cooldownTime = cooldownTime;
+        _ownerCanBypass = ownerCanBypass;
+    }
 
     public override async Task<PreconditionResult> CheckRequirementsAsync(IInteractionContext context, ICommandInfo commandInfo, IServiceProvider serviceProvider)
     {
         var userId = context.User.Id;
 
         // Owner bypasses the cooldown
-        var config = serviceProvider.GetRequiredService<IConfiguration>();
-        if (userId.ToString().Equals(config["BOT_OWNER_ID"] ?? "427388881214898177")) return await Task.FromResult(PreconditionResult.FromSuccess());
+        if (_ownerCanBypass)
+        {
+            var config = serviceProvider.GetRequiredService<IConfiguration>();
+            if (userId.ToString().Equals(config["BOT_OWNER_ID"] ?? "427388881214898177")) return await Task.FromResult(PreconditionResult.FromSuccess());
+        }
 
         // Get the current time in milliseconds
         var currentTimeMs = DateTimeOffset.Now.ToUnixTimeMilliseconds();
