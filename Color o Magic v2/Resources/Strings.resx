@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    
+    <data name="name">
+        <value>Color o' Magic</value>
+    </data>
+    
+    <data name="info">
+        <value>Info</value>
+    </data>
+    <data name="success" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="error" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="warning" xml:space="preserve">
+        <value>Warning</value>
+    </data>
+
+    <data name="on_cooldown.title">
+        <value>This command is on cooldown.</value>
+    </data>
+    <data name="on_cooldown.description">
+        <value>There are `{0:D}` minutes and `{1:D}` seconds remaining.</value>
+    </data>
+</root>

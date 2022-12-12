@@ -1,4 +1,6 @@
-﻿using Discord;
+﻿using System.Resources;
+using Color_o_Magic_v2.Utils;
+using Discord;
 using Discord.Interactions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +21,11 @@ public class CooldownAttribute : PreconditionAttribute
 
     public override async Task<PreconditionResult> CheckRequirementsAsync(IInteractionContext context, ICommandInfo commandInfo, IServiceProvider serviceProvider)
     {
+        var userId = context.User.Id;
+
         // Owner bypasses the cooldown
         var config = serviceProvider.GetRequiredService<IConfiguration>();
-        if (context.User.Id.ToString().Equals(config["BOT_OWNER_ID"] ?? "427388881214898177")) return await Task.FromResult(PreconditionResult.FromSuccess());
+        if (userId.ToString().Equals(config["BOT_OWNER_ID"] ?? "427388881214898177")) return await Task.FromResult(PreconditionResult.FromSuccess());
 
         // Get the current time in milliseconds
         var currentTimeMs = DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -30,14 +34,25 @@ public class CooldownAttribute : PreconditionAttribute
         foreach (var pair in _activeCooldowns.Where(cooldown => cooldown.Value <= currentTimeMs).ToList()) _activeCooldowns.Remove(pair.Key);
 
         // If user is in cooldown, return error
-        if (_activeCooldowns.ContainsKey(context.User.Id))
+        if (_activeCooldowns.ContainsKey(userId))
         {
-            await context.Interaction.RespondAsync("Still on cooldown.", ephemeral: true);
+            // Get the remaining time
+            var remainingTime = TimeSpan.FromMilliseconds(_activeCooldowns[userId] - currentTimeMs);
+
+            // Get embed info
+            var title = ResourceHelper.ReadResource("on_cooldown.title");
+            var description = ResourceHelper.ReadResource("on_cooldown.description", "", remainingTime.Minutes, remainingTime.Seconds);
+
+            // Create embed
+            var embed = EmbedHelper.GetBasicErrorEmbed(title, description).Build();
+
+            // Send embed
+            await context.Interaction.RespondAsync(embed: embed, ephemeral: true);
             return await Task.FromResult(PreconditionResult.FromError("Still on cooldown."));
         }
 
         // Add user to cooldown
-        _activeCooldowns.Add(context.User.Id, currentTimeMs + _cooldownTime);
+        _activeCooldowns.Add(userId, currentTimeMs + _cooldownTime);
         return await Task.FromResult(PreconditionResult.FromSuccess());
     }
 }
