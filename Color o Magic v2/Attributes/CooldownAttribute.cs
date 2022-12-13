@@ -49,7 +49,7 @@ public class CooldownAttribute : PreconditionAttribute
 
             // Get embed info
             var title = ResourceHelper.ReadResource("on_cooldown.title");
-            var description = ResourceHelper.ReadResource("on_cooldown.description", "", remainingTime.Minutes, remainingTime.Seconds);
+            var description = ResourceHelper.ReadResource("on_cooldown.description", "{0:D}, {1:D}", remainingTime.Minutes, remainingTime.Seconds);
 
             // Create embed
             var embed = EmbedHelper.GetBasicErrorEmbed(title, description).Build();
