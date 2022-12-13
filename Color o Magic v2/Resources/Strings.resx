@@ -17,6 +17,20 @@
         <value>Warning</value>
     </data>
 
+    <data name="invalid_rgb_color.title">
+        <value>Invalid RGB color.</value>
+    </data>
+    <data name="invalid_rgb_color.description">
+        <value>The **RGB** color you provided is invalid. Please make sure that all values are between `0` and `255`.</value>
+    </data>
+
+    <data name="invalid_hex_color.title">
+        <value>Invalid Hex color.</value>
+    </data>
+    <data name="invalid_hex_color.description">
+        <value>The **Hex** color you provided is invalid.</value>
+    </data>
+
     <data name="on_cooldown.title">
         <value>This command is on cooldown.</value>
     </data>

@@ -5,34 +5,52 @@ namespace Color_o_Magic_v2.Utils;
 public static class ColorHelper
 {
     private static readonly Random DefaultRandom = new();
-
+    
     /// <summary>
     /// Converts a hex string to a <see cref="Color"/>.
     /// </summary>
     /// <param name="hex">A hex string.</param>
+    /// <returns>A <see cref="Color"/>.</returns>
     public static Color? FromHex(string hex)
     {
+        if(!hex.StartsWith("#")) hex = "#" + hex;
         try { return ColorTranslator.FromHtml(hex); }
         catch { return null; }
     }
 
+    /// <summary>
+    /// Converts a <see cref="Color"/> to a hex string.
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns>A hex string.</returns>
+    public static string ToHexString(this Color color) => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+    
     /// <summary>
     /// Converts rgb values to a <see cref="Color"/>.
     /// </summary>
     /// <param name="r">Red</param>
     /// <param name="g">Green</param>
     /// <param name="b">Blue</param>
+    /// <returns>A <see cref="Color"/>.</returns>
     public static Color? FromRgb(int r, int g, int b)
     {
         try { return Color.FromArgb(r, g, b); }
         catch { return null; }
     }
+    
+    /// <summary>
+    /// Converts a <see cref="Color"/> to an rgb a string.
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
+    public static string ToRgbString(this Color color) => $"rgb({color.R}, {color.G}, {color.B})";
 
     /// <summary>
     /// Generates a random <see cref="Color"/>.
     /// </summary>
     /// <param name="random">Use a custom (seeded) <see cref="Random"/>.</param>
-    public static Color GetRandom(Random? random = null)
+    /// <returns>A random <see cref="Color"/>.</returns>
+    public static Color GenerateRandom(Random? random = null)
     {
         random ??= DefaultRandom;
         return Color.FromArgb(random.Next(0, 256), random.Next(0, 256), random.Next(0, 256));
@@ -44,7 +62,8 @@ public static class ColorHelper
     /// <param name="start">The start <see cref="Color"/>.</param>
     /// <param name="end">The end <see cref="Color"/>.</param>
     /// <param name="steps">The number of steps between the colors.</param>
-    public static IEnumerable<Color> GetGradients(Color start, Color end, int steps)
+    /// <returns>An array of <see cref="Color"/>s.</returns>
+    public static IEnumerable<Color> GenerateGradients(Color start, Color end, int steps)
     {
         var stepR = (end.R - start.R) / (double)(steps - 1);
         var stepG = (end.G - start.G) / (double)(steps - 1);
