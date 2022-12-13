@@ -40,6 +40,7 @@ public class ConvertColorCommand : InteractionModuleBase<SocketInteractionContex
 
     private async Task OnConvertColor(Color color)
     {
+        //TODO: Finish this
         await RespondAsync("TODO");
     }
 }
