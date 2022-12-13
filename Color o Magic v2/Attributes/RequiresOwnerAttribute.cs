@@ -9,6 +9,13 @@ namespace Color_o_Magic_v2.Attributes;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class RequiresOwnerAttribute : PreconditionAttribute
 {
+    /// <summary>
+    /// Checks if the user is the owner of the bot.
+    /// </summary>
+    public RequiresOwnerAttribute()
+    {
+    }
+
     public override async Task<PreconditionResult> CheckRequirementsAsync(IInteractionContext context, ICommandInfo commandInfo, IServiceProvider serviceProvider)
     {
         var userId = context.User.Id;
@@ -20,7 +27,7 @@ public class RequiresOwnerAttribute : PreconditionAttribute
         // Get embed info
         var title = ResourceHelper.ReadResource("not_the_owner.title");
         var description = ResourceHelper.ReadResource("not_the_owner.description");
-        
+
         // Create embed
         var embed = EmbedHelper.GetBasicErrorEmbed(title, description).Build();
 
