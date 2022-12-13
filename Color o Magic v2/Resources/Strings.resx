@@ -7,13 +7,13 @@
     <data name="info">
         <value>Info</value>
     </data>
-    <data name="success" xml:space="preserve">
+    <data name="success">
         <value>Success</value>
     </data>
-    <data name="error" xml:space="preserve">
+    <data name="error">
         <value>Error</value>
     </data>
-    <data name="warning" xml:space="preserve">
+    <data name="warning">
         <value>Warning</value>
     </data>
 
