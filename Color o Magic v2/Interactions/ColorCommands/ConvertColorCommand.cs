@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using Color_o_Magic_v2.Attributes;
 using Color_o_Magic_v2.Parameters.ColorParameter;
+using Color_o_Magic_v2.Utils;
 using Discord.Interactions;
 
 namespace Color_o_Magic_v2.Interactions.ColorCommands;
@@ -40,7 +41,10 @@ public class ConvertColorCommand : InteractionModuleBase<SocketInteractionContex
 
     private async Task OnConvertColor(Color color)
     {
-        //TODO: Finish this
-        await RespondAsync("TODO");
+        var embed = EmbedHelper.GetColoredEmbed(color);
+        embed.AddField("Hex", $"`{color.ToHexString()}`", true);
+        embed.AddField("Rgb", $"`{color.ToRgbString()}`", true);
+        embed.AddField("Argb", $"`{color.ToArgbString()}`", true);
+        await RespondAsync(embed: embed.Build());
     }
 }

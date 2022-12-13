@@ -57,4 +57,11 @@ public static class EmbedHelper
     /// <param name="description">Embed description</param>
     public static Discord.EmbedBuilder GetBasicWarningEmbed(string? title, string? description) =>
         GetBasicEmbed(title ?? ResourceHelper.ReadResource("warning"), description, Color.FromArgb(205, 172, 101));
+
+    /// <summary>
+    /// Generates a empty embed with the given color.
+    /// </summary>
+    /// <param name="color">Embed color</param>
+    public static Discord.EmbedBuilder GetColoredEmbed(Color color) =>
+        new Discord.EmbedBuilder().WithColor(new Discord.Color(color.R, color.G, color.B));
 }
