@@ -8,5 +8,8 @@ public abstract class ComplexParameter
     [ComplexParameterCtor]
     protected ComplexParameter() { }
 
+    /// <summary>
+    /// Get the error as an embed.
+    /// </summary>
     public abstract Embed GetErrorEmbed();
 }

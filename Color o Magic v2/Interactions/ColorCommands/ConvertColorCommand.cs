@@ -12,8 +12,10 @@ public class ConvertColorCommand : InteractionModuleBase<SocketInteractionContex
     [SlashCommand("hex", "Converts a Hex color.")]
     public async Task OnHex([ComplexParameter] HexColorParameter hexColorParameter)
     {
+        // Get the color from the parameter
         var color = hexColorParameter.Color;
 
+        // Check if the user entered a valid color
         if (color != null) await OnConvertColor((Color)color);
         else await RespondAsync(embed: hexColorParameter.GetErrorEmbed(), ephemeral: true);
     }
@@ -21,8 +23,10 @@ public class ConvertColorCommand : InteractionModuleBase<SocketInteractionContex
     [SlashCommand("rgb", "Converts a RGB color.")]
     public async Task OnRgb([ComplexParameter] RgbColorParameter rgbColorParameter)
     {
+        // Get the color from the parameter
         var color = rgbColorParameter.Color;
 
+        // Check if the user entered a valid color
         if (color != null) await OnConvertColor((Color)color);
         else await RespondAsync(embed: rgbColorParameter.GetErrorEmbed(), ephemeral: true);
     }
@@ -41,10 +45,13 @@ public class ConvertColorCommand : InteractionModuleBase<SocketInteractionContex
 
     private async Task OnConvertColor(Color color)
     {
+        // Create embed
         var embed = EmbedHelper.GetColoredEmbed(color);
         embed.AddField("Hex", $"`{color.ToHexString()}`", true);
         embed.AddField("Rgb", $"`{color.ToRgbString()}`", true);
         embed.AddField("Argb", $"`{color.ToArgbString()}`", true);
+        
+        // Send embed
         await RespondAsync(embed: embed.Build());
     }
 }

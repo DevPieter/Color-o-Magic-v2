@@ -10,6 +10,9 @@ public class RgbColorParameter : ComplexParameter
     private readonly int _g;
     private readonly int _b;
 
+    /// <summary>
+    /// Get the color from the RGB values.
+    /// </summary>
     public Color? Color => ColorHelper.FromRgb(_r, _g, _b);
 
     public RgbColorParameter(
@@ -27,9 +30,11 @@ public class RgbColorParameter : ComplexParameter
 
     public override Discord.Embed GetErrorEmbed()
     {
+        // Get embed info
         var title = ResourceHelper.ReadResource("invalid_rgb_color.title");
         var description = ResourceHelper.ReadResource("invalid_rgb_color.description");
 
+        // Create embed
         return EmbedHelper.GetBasicErrorEmbed(title, description).Build();
     }
 }
