@@ -1,5 +1,4 @@
-﻿using Discord;
-using Discord.Interactions;
+﻿using Discord.Interactions;
 
 namespace Color_o_Magic_v2.Parameters;
 
@@ -11,5 +10,5 @@ public abstract class ComplexParameter
     /// <summary>
     /// Get the error as an embed.
     /// </summary>
-    public abstract Embed GetErrorEmbed();
+    public abstract Discord.Embed GetErrorEmbed();
 }
