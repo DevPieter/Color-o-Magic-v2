@@ -23,4 +23,11 @@
     <data name="on_cooldown.description">
         <value>There are `{0:D}` minutes and `{1:D}` seconds remaining.</value>
     </data>
+
+    <data name="not_the_owner.title">
+        <value>This is an owner command.</value>
+    </data>
+    <data name="not_the_owner.description">
+        <value>Sorry, but you are not the owner of this bot.</value>
+    </data>
 </root>

@@ -1,5 +1,4 @@
-﻿using System.Resources;
-using Color_o_Magic_v2.Utils;
+﻿using Color_o_Magic_v2.Utils;
 using Discord;
 using Discord.Interactions;
 using Microsoft.Extensions.Configuration;

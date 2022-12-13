@@ -22,4 +22,7 @@ public class HelloWorldCommand : InteractionModuleBase<SocketInteractionContext>
 
         await RespondAsync(embeds: new[] { basicEmbed, basicEmbedNoColor, basicInfoEmbed, basicSuccessEmbed, basicWarningEmbed, basicErrorEmbed });
     }
+
+    [SlashCommand("owner-test", "Owner test command"), RequiresOwner]
+    public async Task OnOwnerTest() => await RespondAsync("Hello World!");
 }
