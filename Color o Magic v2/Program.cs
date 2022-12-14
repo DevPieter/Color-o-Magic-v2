@@ -71,8 +71,6 @@ public class Program
         return Task.CompletedTask;
     }
 
-    private Game ParseGame(string? activity, string? type)
-    {
-        return new Game(activity ?? "", Enum.TryParse(type, true, out ActivityType activityType) ? activityType : ActivityType.Playing);
-    }
+    private Game ParseGame(string? activity, string? type) =>
+        new Game(activity ?? "", Enum.TryParse(type, true, out ActivityType activityType) ? activityType : ActivityType.Playing);
 }
